@@ -88,6 +88,14 @@ export default function Home() {
     </section>
       )}
     </main>
+    {!state.isSearching && state.pokemon.length > 0 && (
+        <a
+          href="#"
+          className="top bg-slate-800 border-slate-900 border-2 text-amber-400 font-semibold bottom-0 p-3 rounded-xl left-[150px] lg:bottom-5 lg:left-[350px]"
+        >
+          Back to Top &#8593;
+        </a>
+      )}
     </>
   )
 }
