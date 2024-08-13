@@ -7,10 +7,17 @@ export interface PokemonBasic {
 
 export interface PokemonDetailed {
   id: number;
-  name: string;
-  sprites: {
-    front_default: string;
-  };
+    name: string;
+    url: string;
+    sprites: {
+      other: {
+        'official-artwork': {
+          front_default: string;
+          front_shiny: string;
+        }
+      }
+    }
+    types: any
 }
 
 export async function fetchAllPokemon(): Promise<PokemonBasic[]> {

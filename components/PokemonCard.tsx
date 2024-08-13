@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { TYPE_COLORS, TYPE_SECONDARY_COLORS } from "../constants/constants";
 import { capitalizeFirstLetter } from "../helper/helper";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 interface PokemonDetailed {
   id: number;
@@ -34,7 +33,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const pokeIndex = ("000" + pokemon.id).slice(pokemon.id > 999 ? -4 : -3);
   const [shiny, setShiny] = useState(false);
-  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  // const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
   const typeColorGradient = getTypeColorGradient(pokemon.types);
 
@@ -81,7 +80,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
             <span
               key={type.type.name}
               className={`px-2 py-0 md:py-3 rounded flex items-center justify-center sm:py-1 sm:gap-1
-              ${isMobile && type.type.name}`}
+              ${type.type.name}`}
             >
               <div className="md:hidden">
                 <Image
