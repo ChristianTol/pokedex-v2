@@ -4,6 +4,9 @@ type PokemonState = {
   pokemon: PokemonDetailed[];
   loadedCount: number;
   isSearching: boolean;
+  isLoading: boolean;
+  error: string | null;
+  currentPage: number;
 }
 
 type PokemonAction = 
@@ -11,11 +14,18 @@ type PokemonAction =
   | { type: 'SET_POKEMON'; payload: PokemonDetailed[] }
   | { type: 'RESET' }
   | { type: 'SET_SEARCHING'; payload: boolean }
+  | { type: 'SET_PAGE'; payload: number }  //
+  | { type: 'SET_LOADING'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string | null }
 
 export const initialState: PokemonState = {
   pokemon: [],
   loadedCount: 0,
   isSearching: false,
+  isLoading: false,
+  error: null,
+  currentPage: 1,
+  
 }
 
 export function pokemonReducer(state: PokemonState, action: PokemonAction): PokemonState {
@@ -39,6 +49,22 @@ export function pokemonReducer(state: PokemonState, action: PokemonAction): Poke
       return {
         ...state,
         isSearching: action.payload,
+      }
+    case 'SET_PAGE':
+      return {
+        ...state,
+        currentPage: action.payload,
+      }
+    case 'SET_LOADING':
+      return {
+        ...state,
+        isLoading: action.payload,
+      }
+    case 'SET_ERROR':
+      return {
+        ...state,
+        error: action.payload,
+        isSearching: false
       }
     default:
       return state
