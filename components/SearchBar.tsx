@@ -43,16 +43,14 @@ export default function SearchBar({ onSearch, suggestions }: SearchBarProps) {
         value={searchTerm}
         onChange={handleInputChange}
         placeholder="Search Pokemon"
-        className="w-full p-2 border rounded"
-        style={{color: 'black'}}
+        className="w-full p-2 border rounded bg-slate-800 border-slate-900 text-amber-400"
       />
       {showSuggestions && suggestions.length > 0 && (
-        <div ref={suggestionsRef} className="absolute z-10 w-full mt-1 bg-white border rounded shadow-lg">
+        <div ref={suggestionsRef} className="absolute z-10 w-full mt-1 bg-slate-800 border-slate-900 text-amber-400 border rounded shadow-lg">
           {suggestions.map((suggestion, index) => (
             <div
               key={index}
               className="p-2 hover:bg-gray-100 cursor-pointer"
-              style={{color: 'black'}}
               onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion}
