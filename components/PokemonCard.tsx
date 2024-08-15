@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TYPE_COLORS, TYPE_SECONDARY_COLORS } from "../constants/constants";
 import { capitalizeFirstLetter } from "../helper/helper";
 
@@ -29,11 +29,29 @@ interface PokemonType {
   };
 }
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 767px)").matches);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile;
+};
+
+
 export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const pokeIndex = ("000" + pokemon.id).slice(pokemon.id > 999 ? -4 : -3);
   const [shiny, setShiny] = useState(false);
-  // const isMobile = window.matchMedia("(max-width: 767px)").matches;
+  const isMobile = useIsMobile();
 
   const typeColorGradient = getTypeColorGradient(pokemon.types);
 
@@ -80,7 +98,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
             <span
               key={type.type.name}
               className={`px-2 py-0 md:py-3 rounded flex items-center justify-center sm:py-1 sm:gap-1
-              ${type.type.name}`}
+              ${isMobile && type.type.name}`}
             >
               <div className="md:hidden">
                 <Image
@@ -105,7 +123,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
                   </div>
                 </div>
                 <div
-                  className={`h-[32px] w-[90px] flex items-center justify-center m-[-8px] rounded-r ${type.type.name}-text font-bold [clip-path:polygon(10%_0%,100%_0%,100%_100%,0%_100%)]`}
+                  className={`h-[32px] w-[92px] flex items-center justify-center m-[-8px] rounded-r ${type.type.name}-text font-bold [clip-path:polygon(10%_0%,100%_0%,100%_100%,0%_100%)]`}
                 >
                   <p className="hidden md:inline uppercase px-[8px]">
                     {capitalizeFirstLetter(type.type.name)}
