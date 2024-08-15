@@ -99,10 +99,10 @@ export default function Home() {
 
       <main className="container mx-auto p-4">
         <SearchBar onSearch={handleSearch} suggestions={suggestions} />
-        {state.error && <p className="text-red-500">{state.error}</p>}
+        {/* {state.error && <p className="text-red-500">{state.error}</p>} */}
         <PokemonList pokemon={state.pokemon} />
         <div ref={ref} className="h-10" />
-        {!state.isSearching && !state.isLoading && state.pokemon.length < 1020 && (
+        {!state.isSearching && !state.isLoading && state.pokemon.length < 1025 && (
           <section className="flex justify-center items-center">
             <figure ref={ref} className="animate-[spin_4s_infinite]">
               <Image src={pokeball} alt="Loading..." height={80} width={80} />
